@@ -5,6 +5,6 @@
 
 
 .imageBox{
-	height: 300px;
-	weight: 300px;
+	max-width: 300px;
+	max-width: 300px;
 }

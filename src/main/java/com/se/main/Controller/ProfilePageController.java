@@ -28,18 +28,18 @@ import com.amazonaws.services.s3.model.PutObjectRequest;
  */
 @Controller
 public class ProfilePageController {
-	
+	@Value("#{environment.accessKey}")
 	String accessKey;
 	
-	
+	@Value("#{environment.privateKey}")
 	String privateKey;
 		
 	@PostMapping(value = "/picupload")
 	public ModelAndView uploadFile(@RequestParam("file") MultipartFile image) {
 		ModelAndView profilepg = new ModelAndView();
-		accessKey = System.getenv("accessKey");
+/*		accessKey = System.getenv("accessKey");
 
-		privateKey = System.getenv("privateKey");	
+		privateKey = System.getenv("privateKey");*/	
 		BasicAWSCredentials creds = new BasicAWSCredentials(accessKey,privateKey);
 		AmazonS3 amazonS3 = AmazonS3ClientBuilder.standard().withCredentials(new AWSStaticCredentialsProvider(creds))
 				.withRegion(Regions.US_EAST_2).build();

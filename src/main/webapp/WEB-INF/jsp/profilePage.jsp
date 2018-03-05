@@ -16,29 +16,24 @@
 	integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
 	crossorigin="anonymous"></script>
 </head>
-<body>
-<div class="row">
-	<div class="container-fluid">
-	
-		<nav class="navbar-custom">
-    		<a class="navbar-brand" href="#">		<img src="logo.jpg" class="d-inline-block align-top" height="30" width="30">	&nbsp;&nbsp;	Glen's Media Library</a>
-    	</nav>
-		
-<!-- 		<nav class="navbar navbar-light bg-light">
-			<a class="navbar-brand" href="#"> 
-				<img src="logo.png" class="d-inline-block align-top" alt="" height="22" width="22">Glen's Media Library
-			</a>
-		</nav> -->
+<body>	
+	<nav class="navbar-custom">
+   		<a class="navbar-brand" href="#">		<img src="logo.jpg" class="d-inline-block align-top" height="30" width="30">	&nbsp;&nbsp;	Glen's Media Library</a>
+   	</nav>
+	<div class="container">
+	<br>
+	<br>
+		<div class="row">	
+			<div class="col-4">
+				<img src="${image}" class="imageBox" />
+			</div>
+			<div class="col-5"><h2><b>Glen Sequeira</b></h2>
+				<h5>This is my live Library. Experience my talking photos. Enjoy !!</h5>
+				<h5>Feel free to post your comments and views on my uploads.</h5>
+				<h5>Your views and advice on my pictures are appreciated. </h5>
+			</div>
+		</div>
 	</div>
-	
-	<div class="col-2">
-		<img src="${image}" class="imageBox" height="300" width="300" />
-	</div>
-	<div class="col-5"><h2><b>Glen Sequeira</b></h2>
-		<h5>This is my live Library. Experience my talking photos. Enjoy !!</h5>
-	</div>
-</div>
-	
 
 	<!-- jQuery first, then Tether, then Bootstrap JS. -->
 	<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
