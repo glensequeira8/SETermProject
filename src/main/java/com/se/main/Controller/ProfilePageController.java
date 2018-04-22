@@ -55,7 +55,7 @@ public class ProfilePageController {
 	private UserRepository userRepo;
 	
 	@Autowired
-	private FriendsRepository firendsRepo;
+	private FriendsRepository friendsRepo;
 
 
 	public ProfilePageController() {
@@ -76,7 +76,7 @@ public class ProfilePageController {
 		BasicAWSCredentials creds = new BasicAWSCredentials(accessKey,privateKey);
 		AmazonS3 amazonS3 = AmazonS3ClientBuilder.standard().withCredentials(new AWSStaticCredentialsProvider(creds))
 				.withRegion(Regions.US_EAST_2).build();
-		// to uncomment before code submit
+	
 
 		try {
 			PutObjectRequest putreq = new PutObjectRequest("myamazonbucketgs794734", image.getOriginalFilename(),
@@ -94,19 +94,17 @@ public class ProfilePageController {
 			profilepg.addObject("description",description);
 			profilepg.addObject("name",user.getName());
 			profilepg.addObject("friends",user.getFriends());
-//			List<Friends> friends=user.getFriends();
+
 			profilepg.setViewName("profilePage");
 			return profilepg;
-			// to uncomment before code submit
+
 
 	} catch (IOException e) {
-			// TODO Auto-generated catch block
+
 			e.printStackTrace();
 			ModelAndView errorView = new ModelAndView();
 			errorView.setViewName("errorPage");
-//			amazonS3.getObject(arg0);
-//			GetObjectAclRequest r=new GetObjectRequest()
-//					S3ObjectId   e =new S3ObjectId(bucket, key)
+
 			return profilepg;
 		}
 	
@@ -143,8 +141,6 @@ public class ProfilePageController {
 		ModelAndView index=new ModelAndView();
 		User user=userRepo.findByUserid(myId);
 		if(user==null) {
-			//
-			
 			User newUser=new User();
 			newUser.setUserid(myId);
 			newUser.setDescription("");
@@ -154,21 +150,18 @@ public class ProfilePageController {
 			newUser.setPhotoLink("");
 			newUser.setFriends(createFriendsSet(newUser, splitted));
 			System.out.println("user data:"+newUser);
-			//userRepo.save(newUser);
 			if(!model.containsAttribute("user")) {
 				model.addAttribute(newUser);
 			}
-			//index.addObject("user",newUser);
+
 			index.setViewName("createProfile");
-//		index.setViewName("index");
+
 		}
 		else {
+			user.setFriends(checkFriends(user, splitted,myFriends));
 			index.addObject("image", user.getPhotoLink());
 			index.addObject("name",user.getName());
 			index.addObject("description",user.getDescription());
-/*			if(!model.containsAttribute("user")) {
-				model.addAttribute(user);
-			}*/
 			index.addObject("friends",user.getFriends());
 			index.setViewName("profilePage");
 		}
@@ -190,4 +183,39 @@ public class ProfilePageController {
 		return friends;
 	}
 
+	
+	private List<Friends> checkFriends(User user,String[] splitted,String myFriends){
+		List<Friends> friends= new ArrayList<>();
+			List<Friends> savedFriends=user.getFriends();
+			for(int i=0;i<splitted.length;i=i+2) {
+				FriendsId fId=new FriendsId();
+				fId.setUser(user);
+				fId.setFriendid(splitted[i]);
+				Friends friend=friendsRepo.findById(fId);
+				if(friend==null) {
+			
+					Friends newfriend =new Friends();
+			
+					newfriend.setId(fId);
+					newfriend.setFriendName(splitted[i+1]);
+					friendsRepo.save(newfriend);
+					friends.add(newfriend);
+				
+				}else {
+					friends.add(friend);
+				
+				}
+			}
+				for(Friends f:savedFriends) {
+					if(!myFriends.contains(f.getId().getFriendid())) {
+					friendsRepo.delete(f);
+					friends.remove(f);
+					}
+				}
+
+		
+		return friends;
+		
+		
+	}
 }

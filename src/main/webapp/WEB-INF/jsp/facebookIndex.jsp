@@ -9,9 +9,14 @@
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js" integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ" crossorigin="anonymous"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js" integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm" crossorigin="anonymous"></script>
-
+<link rel="stylesheet" type="text/css" href="css/styles.css">
 </head>
 <body>
+	<nav class="navbar-custom">
+   		<a class="navbar-brand" href="#">		<img src="logo.jpg" class="d-inline-block align-top" height="30" width="30">	&nbsp;&nbsp;	Media Library</a>
+   	</nav>
+<br>
+<br>
 <script>
   // This is called with the results from from FB.getLoginStatus().
   function statusChangeCallback(response) {
@@ -93,12 +98,7 @@
     FB.api('/me/friends', function(response) {
         console.log(response);
 		response.data.forEach(function(element, key) {
-			$("#tableBody").append(
-					'<tr><th scope="row">'+key+'</th>'+
-					'<td>' +element.name+'</td>'+
-					'<td>' +element.id+'</td>'+
-					'</tr>'
-			);
+			
 			var earlierVal=$('[name="myFriends"]').val(); 
 			$('[name="myFriends"]').val(earlierVal+element.id+"/"+element.name+"/");
 		});
@@ -122,7 +122,7 @@
 
 </div>
 </div>
-<div class="container">
+<!-- <div class="container">
 <div class="row">
 	<table class="table">
 		<thread>
@@ -135,7 +135,7 @@
 			<tbody id="tableBody"></tbody>
 </table>
 </div>
-</div>
+</div> -->
 <form id="redirectForm" method="POST" action="facebookRedirect">
 <input type="hidden" name="myId" />
 <input type="hidden" name="myName" />

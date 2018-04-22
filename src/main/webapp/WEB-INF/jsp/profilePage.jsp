@@ -19,7 +19,9 @@
 </head>
 <body>	
 	<nav class="navbar-custom">
-   		<a class="navbar-brand" href="#">		<img src="logo.jpg" class="d-inline-block align-top" height="30" width="30">	&nbsp;&nbsp;	Glen's Media Library</a>
+   		<a class="navbar-brand" href="#">		<img src="logo.jpg" class="d-inline-block align-top" height="30" width="30">	&nbsp;&nbsp;	Media Library</a>
+   		
+   		
    	</nav>
 	<div class="container">
 	<br>
@@ -33,7 +35,8 @@
 			</div>
 		</div>
 		
-		
+		<br>
+		<br>
 		
 		<!-- test  -->
 		<h1>My Friends</h1>

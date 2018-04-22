@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.data.repository.CrudRepository;
 
 import com.se.main.pojos.Friends;
+import com.se.main.pojos.FriendsId;
 import com.se.main.pojos.User;
 
 public interface FriendsRepository extends CrudRepository<Friends, String> {
@@ -13,5 +14,6 @@ public interface FriendsRepository extends CrudRepository<Friends, String> {
 	//public List<Friends> findByUser(User user);
 	//public List<Friends> findByUser(String userid);
 	
-	//public List<Friends> findById(String userid);
+	public Friends findById(FriendsId userid);
+	
 }

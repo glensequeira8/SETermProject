@@ -18,15 +18,15 @@
 </head>
 <body>	
 	<nav class="navbar-custom">
-   		<a class="navbar-brand" href="#">		<img src="logo.jpg" class="d-inline-block align-top" height="30" width="30">	&nbsp;&nbsp;	Glen's Media Library</a>
+   		<a class="navbar-brand" href="#">		<img src="logo.jpg" class="d-inline-block align-top" height="30" width="30">	&nbsp;&nbsp;	Media Library</a>
    	</nav>
 	<div class="container">
 	<br>
 	<br>
 	<form action="/picupload" method="POST" enctype="multipart/form-data">
 	<div class="row">	
-			<div class="col-9"><h2><b>Glen Sequeira</b></h2>
-				
+			<div class="col-9"><h2><b>Welcome ${user.name}</b></h2>
+				<br>
 				<h5> Upload Profile Image:
 					<input type="file"  name="file"/> 
 					
@@ -34,8 +34,8 @@
 		</div>
 		
 		<div class="row">	
-			<div class="col-9">
-				
+			<div class="col-12">
+				<br>
 				<h5> Say something about yourself:</h5>
 					<input type="text"  name="description"/>
 					<input type="hidden" name="user"/> 
