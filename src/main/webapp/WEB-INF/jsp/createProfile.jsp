@@ -1,4 +1,3 @@
-<%@ taglib uri='http://java.sun.com/jsp/jstl/core' prefix='c'%>
 <html lang="en">
 <head>
 <!-- Required meta tags -->
@@ -24,48 +23,26 @@
 	<div class="container">
 	<br>
 	<br>
-		<div class="row">	
-			<div class="col-4">
-				<img src="${image}" class="imageBox" />
-			</div>
-			<div class="col-5"><h2><b>${name}</b></h2>
-				<h5>${description}</h5>
+	<form action="/picupload" method="POST" enctype="multipart/form-data">
+	<div class="row">	
+			<div class="col-9"><h2><b>Glen Sequeira</b></h2>
+				
+				<h5> Upload Profile Image:
+					<input type="file"  name="file"/> 
+					
 			</div>
 		</div>
 		
-		
-		
-		<!-- test  -->
-		<h1>My Friends</h1>
-
-    <table class="table">
-    <thead>
-    <tr>	
-    <th>ID</th>
-    <th>Name</th>
-    </tr>
-    </thead>
-      
-    <tbody>
-    
-<c:forEach items="${friends}" var="friend">
-    <tr>
-		 
-        <td>
-         <c:out value="${friend.id.friendid }"/>
-        </td>
-        <td><c:out value="${friend.friendName}"/></td>
-    </tr>
- </c:forEach>
-    </tbody>
-     </table>
-		<!-- test end -->
-		
-		
-		
-		
-		
-		
+		<div class="row">	
+			<div class="col-9">
+				
+				<h5> Say something about yourself:</h5>
+					<input type="text"  name="description"/>
+					<input type="hidden" name="user"/> 
+					<input type="submit" />				
+			</div>
+		</div>
+	</form>	
 	</div>
 
 	<!-- jQuery first, then Tether, then Bootstrap JS. -->

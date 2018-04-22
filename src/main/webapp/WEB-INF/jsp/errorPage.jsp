@@ -12,7 +12,7 @@
   <nav class="navbar navbar-default">
   <div class="container-fluid">
     <ul class="nav navbar-nav">
-    <li><a href="#"><img src="logo.png" qlt="Glen's Blog" height="22" width="22">       </a><a href="#">Glen's Blog</a>
+    <li><a href="#"><img src="logo.png" alt="Glen's Blog" height="22" width="22">       </a><a href="#">Glen's Blog</a>
     </li>
       <li></li>
     </ul>
