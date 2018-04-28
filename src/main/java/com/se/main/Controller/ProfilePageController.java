@@ -170,8 +170,11 @@ public class ProfilePageController {
 
 	private List<Friends> createFriendsSet(User user,String[]  splitted){
 		List<Friends> friends= new ArrayList<>();
+
 		for(int i=0;i<splitted.length;i=i+2) {
-			
+			if((splitted.length==1) && splitted[0]=="") {
+				
+			}else {			
 			Friends newfriend =new Friends();
 			FriendsId fId=new FriendsId();
 			fId.setFriendid(splitted[i]);
@@ -179,6 +182,7 @@ public class ProfilePageController {
 			newfriend.setId(fId);
 			newfriend.setFriendName(splitted[i+1]);
 			friends.add(newfriend);
+			}
 		}
 		return friends;
 	}
