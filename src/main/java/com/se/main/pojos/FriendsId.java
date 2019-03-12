@@ -45,7 +45,8 @@ public class FriendsId implements Serializable{
 	public void setFriendid(String friendid) {
 		this.friendid = friendid;
 	}
-/*		@Override
+
+	@Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (!(o instanceof FriendsId)) return false;
@@ -57,7 +58,7 @@ public class FriendsId implements Serializable{
     @Override
     public int hashCode() {
         return Objects.hash(getUser(), getUser());
-    }*/
+    }
 	
 	
 

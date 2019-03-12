@@ -34,6 +34,7 @@ import com.se.main.Repository.UserRepository;
 import com.se.main.pojos.Friends;
 import com.se.main.pojos.FriendsId;
 import com.se.main.pojos.User;
+import com.se.main.services.UploadToS3;
 
 
 
@@ -43,13 +44,16 @@ import com.se.main.pojos.User;
  *
  */
 @Controller
-@SessionAttributes(value= {"user"})
+//@SessionAttributes(value= {"user"})
 public class ProfilePageController {
 	@Value("#{environment.accessKey}")
 	String accessKey;
 	
 	@Value("#{environment.privateKey}")
 	String privateKey;
+	
+	@Autowired
+	private UploadToS3 upload;
 	
 	@Autowired
 	private UserRepository userRepo;
@@ -68,46 +72,31 @@ public class ProfilePageController {
 		this.userRepo = userRepo;
 	}
 	@PostMapping(value = "/picupload")
-	public ModelAndView uploadFile(@RequestParam("file") MultipartFile image, @RequestParam("description") String description,@ModelAttribute("user") User user) {
+	public ModelAndView uploadFile(@RequestParam("file") MultipartFile image, @RequestParam("description") String description/*,@ModelAttribute("user") User user*/,HttpServletRequest req) {
 		ModelAndView profilepg = new ModelAndView();
-/*		accessKey = System.getenv("accessKey");
+			String imgurl;
+			try {
+				User user=(User)req.getSession().getAttribute("user");
+				user.setDescription(description);
+				
+				
+				profilepg.addObject("description",description);
+				profilepg.addObject("name",user.getName());
+				profilepg.addObject("friends",user.getFriends());
 
-		privateKey = System.getenv("privateKey");*/	
-		BasicAWSCredentials creds = new BasicAWSCredentials(accessKey,privateKey);
-		AmazonS3 amazonS3 = AmazonS3ClientBuilder.standard().withCredentials(new AWSStaticCredentialsProvider(creds))
-				.withRegion(Regions.US_EAST_2).build();
-	
-
-		try {
-			PutObjectRequest putreq = new PutObjectRequest("myamazonbucketgs794734", image.getOriginalFilename(),
-					image.getInputStream(), new ObjectMetadata()).withCannedAcl(CannedAccessControlList.PublicRead);
-
-			amazonS3.putObject(putreq);
-			String imgurl = "http://" + "myamazonbucketgs794734" + ".s3.amazonaws.com/" + image.getOriginalFilename();
+				
+				imgurl = upload.upload(image.getOriginalFilename(),image.getInputStream());
+				user.setPhotoLink(imgurl);
+				userRepo.save(user);
+				req.getSession().setAttribute("user", user);
+				profilepg.addObject("image", imgurl);
+				profilepg.setViewName("profilePage");
 			
-		
-		
-			user.setPhotoLink(imgurl);
-			user.setDescription(description);
-			userRepo.save(user);
-			profilepg.addObject("image", imgurl);
-			profilepg.addObject("description",description);
-			profilepg.addObject("name",user.getName());
-			profilepg.addObject("friends",user.getFriends());
-
-			profilepg.setViewName("profilePage");
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 			return profilepg;
-
-
-	} catch (IOException e) {
-
-			e.printStackTrace();
-			ModelAndView errorView = new ModelAndView();
-			errorView.setViewName("errorPage");
-
-			return profilepg;
-		}
-	
 	}	
 	
 	@GetMapping(value="/facebook")
@@ -165,6 +154,8 @@ public class ProfilePageController {
 			index.addObject("friends",user.getFriends());
 			index.setViewName("profilePage");
 		}
+		
+		req.getSession().setAttribute("user", user);
 		return index;
 	}
 
